@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+option go_package = "../api";
+
+service Creater{
+	rpc Create(CreateRequest) returns (Empty) {}
+}
+
+message CreateRequest {
+	string Name = 1;
+	string Description = 2;
+	string Status = 3;
+}
+
+message Empty {
+
+}

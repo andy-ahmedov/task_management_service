@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  db:
+    build: ./
+    container_name: task_manager
+    ports:
+      - "5435:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=mark
+      - POSTGRES_DB=task_service
+      - SSL_MODE=disable
