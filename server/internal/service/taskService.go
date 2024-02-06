@@ -2,9 +2,9 @@ package service
 
 import (
 	"context"
-	"time"
 
 	"github.com/andy-ahmedov/task_management_service/server/internal/domain"
+	"github.com/andy-ahmedov/task_management_service/service_api/api"
 )
 
 type TaskRepository interface {
@@ -25,12 +25,15 @@ func NewTaskStorage(repo TaskRepository) *TasksStorage {
 	}
 }
 
-func (t *TasksStorage) CreateTask(ctx context.Context, task *domain.Task) error {
-	if task.Created_at.IsZero() {
-		task.Created_at = time.Now()
+func (t *TasksStorage) CreateTask(ctx context.Context, req *api.CreateRequest) error {
+	task := domain.Task{
+		Name:        req.GetName(),
+		Description: req.GetDescription(),
+		Status:      req.GetStatus(),
 	}
 
-	return t.repo.Create(ctx, task)
+	return t.repo.Create(ctx, &task)
+
 }
 
 func (t *TasksStorage) GetTask(ctx context.Context, id int64) (domain.Task, error) {

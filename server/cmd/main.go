@@ -1,11 +1,11 @@
 package main
 
 import (
-	"context"
 	"log"
 
 	"github.com/andy-ahmedov/task_management_service/server/internal/repository/postgres"
 	"github.com/andy-ahmedov/task_management_service/server/internal/service"
+	grpc_client "github.com/andy-ahmedov/task_management_service/server/internal/transport/grpc"
 	"github.com/andy-ahmedov/task_management_service/server/pkg/psql"
 	"github.com/andy-ahmedov/task_management_service/service_api/config"
 	"github.com/andy-ahmedov/task_management_service/service_api/logger"
@@ -25,9 +25,8 @@ func main() {
 		log.Fatal(err)
 	}
 
-	repo := postgres.NewTaskRepository(db)
-	service := service.NewTaskStorage(repo)
-
-	service.CreateTask(context.Background(), nil)
-
+	postgres := postgres.NewTaskRepository(db)
+	service := service.NewTaskStorage(postgres)
+	taskSrv := grpc_client.NewCreaterServer(service)
+	srv := grpc_client.New(taskSrv)
 }

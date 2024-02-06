@@ -2,8 +2,12 @@ package grpc
 
 import (
 	"context"
+	"fmt"
+	"net"
 
 	"github.com/andy-ahmedov/task_management_service/server/internal/domain"
+	"github.com/andy-ahmedov/task_management_service/service_api/api"
+	"google.golang.org/grpc"
 )
 
 type Task interface {
@@ -14,14 +18,33 @@ type Task interface {
 	UpdateTask(ctx context.Context, id int64, input domain.UpdateTaskInput) error
 }
 
-type GRPCServer struct {
-	tasksService Task
+type Server struct {
+	grpcSrv    *grpc.Server
+	taskServer api.CreaterServer
 }
 
-func NewGRPCServer(task Task) *GRPCServer {
-	return &GRPCServer{
-		tasksService: task,
+func New(taskServ api.CreaterServer) *Server {
+	return &Server{
+		grpcSrv:    grpc.NewServer(),
+		taskServer: taskServ,
 	}
+}
+
+func (s *Server) ListenAndServe(port int) error {
+	addr := fmt.Sprintf(":%d", port)
+
+	lis, err := net.Listen("tcp", addr)
+	if err != nil {
+		return err
+	}
+
+	api.RegisterCreaterServer(s.grpcSrv, s.taskServer)
+
+	if err := s.grpcSrv.Serve(lis); err != nil {
+		return err
+	}
+
+	return err
 }
 
 // func (g *GRPCServer) Add(ctx context.Context, req *api.CreateRequest) (*api.Empty, error) {
