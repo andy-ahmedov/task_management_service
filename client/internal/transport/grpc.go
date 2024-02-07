@@ -36,8 +36,14 @@ func (c *Client) CloseConnection() error {
 	return c.conn.Close()
 }
 
-func (c *Client) Create(ctx context.Context, req *api.CreateRequest) error {
-	_, err := c.CreaterClient.Create(ctx, req)
+func (c *Client) Create(ctx context.Context, name, des, status string) error {
+
+	req := api.CreateRequest{
+		Name:        name,
+		Description: des,
+		Status:      status,
+	}
+	_, err := c.CreaterClient.Create(ctx, &req)
 
 	return err
 }
