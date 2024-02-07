@@ -7,22 +7,22 @@ import (
 	"github.com/andy-ahmedov/task_management_service/service_api/logger"
 )
 
-type Creater interface {
+type TaskService interface {
 	CreateTask(ctx context.Context, req *api.CreateRequest) error
 }
 
-type CreaterServer struct {
-	service Creater
-	api.UnimplementedCreaterServer
+type TaskServiceServer struct {
+	service TaskService
+	api.UnimplementedTaskServiceServer
 }
 
-func NewCreaterServer(service Creater) *CreaterServer {
-	return &CreaterServer{
+func NewCreaterServer(service TaskService) *TaskServiceServer {
+	return &TaskServiceServer{
 		service: service,
 	}
 }
 
-func (h *CreaterServer) Create(ctx context.Context, req *api.CreateRequest) (*api.Empty, error) {
+func (h *TaskServiceServer) Create(ctx context.Context, req *api.CreateRequest) (*api.Empty, error) {
 	err := h.service.CreateTask(ctx, req)
 	if err == nil {
 		logg := logger.NewLogger()

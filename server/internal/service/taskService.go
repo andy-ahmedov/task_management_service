@@ -28,9 +28,9 @@ func NewTaskStorage(repo TaskRepository) *TasksStorage {
 
 func (t *TasksStorage) CreateTask(ctx context.Context, req *api.CreateRequest) error {
 	task := domain.Task{
-		Name:        req.GetName(),
-		Description: req.GetDescription(),
-		Status:      req.GetStatus(),
+		Name:        req.Task.Name,
+		Description: req.Task.Description,
+		Status: req.Task.Status,
 		Created_at:  time.Now(),
 	}
 

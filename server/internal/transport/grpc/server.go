@@ -20,10 +20,10 @@ type Task interface {
 
 type Server struct {
 	grpcSrv    *grpc.Server
-	taskServer api.CreaterServer
+	taskServer api.TaskServiceServer
 }
 
-func New(taskServ api.CreaterServer) *Server {
+func New(taskServ api.TaskServiceServer) *Server {
 	return &Server{
 		grpcSrv:    grpc.NewServer(),
 		taskServer: taskServ,
@@ -38,7 +38,8 @@ func (s *Server) ListenAndServe(port int) error {
 		return err
 	}
 
-	api.RegisterCreaterServer(s.grpcSrv, s.taskServer)
+	// api.RegisterCreaterServer(s.grpcSrv, s.taskServer)
+	api.RegisterTaskServiceServer(s.grpcSrv, s.taskServer)
 
 	if err := s.grpcSrv.Serve(lis); err != nil {
 		return err
