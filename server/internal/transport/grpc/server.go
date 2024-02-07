@@ -3,20 +3,21 @@ package grpc
 import (
 	"context"
 	"fmt"
+	"log"
 	"net"
+	"time"
 
-	"github.com/andy-ahmedov/task_management_service/server/internal/domain"
 	"github.com/andy-ahmedov/task_management_service/service_api/api"
 	"google.golang.org/grpc"
 )
 
-type Task interface {
-	CreateTask(ctx context.Context, task *domain.Task) error
-	GetTask(ctx context.Context, id int64) (domain.Task, error)
-	GetAllTasks(ctx context.Context) ([]domain.Task, error)
-	DeleteTask(ctx context.Context, id int64) error
-	UpdateTask(ctx context.Context, id int64, input domain.UpdateTaskInput) error
-}
+// type Task interface {
+// 	CreateTask(ctx context.Context, task *domain.Task) error
+// 	GetTask(ctx context.Context, id int64) (domain.Task, error)
+// 	GetAllTasks(ctx context.Context) ([]domain.Task, error)
+// 	DeleteTask(ctx context.Context, id int64) error
+// 	UpdateTask(ctx context.Context, id int64, input domain.UpdateTaskInput) error
+// }
 
 type Server struct {
 	grpcSrv    *grpc.Server
@@ -25,9 +26,16 @@ type Server struct {
 
 func New(taskServ api.TaskServiceServer) *Server {
 	return &Server{
-		grpcSrv:    grpc.NewServer(),
+		grpcSrv:    grpc.NewServer(grpc.UnaryInterceptor(loggingInterceptor)),
 		taskServer: taskServ,
 	}
+}
+
+func loggingInterceptor(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (interface{}, error) {
+	start := time.Now()
+	resp, err := handler(ctx, req)
+	log.Printf("Request - Method:%s\tDuration:%s\tError:%v\n", info.FullMethod, time.Since(start), err)
+	return resp, err
 }
 
 func (s *Server) ListenAndServe(port int) error {
@@ -38,7 +46,6 @@ func (s *Server) ListenAndServe(port int) error {
 		return err
 	}
 
-	// api.RegisterCreaterServer(s.grpcSrv, s.taskServer)
 	api.RegisterTaskServiceServer(s.grpcSrv, s.taskServer)
 
 	if err := s.grpcSrv.Serve(lis); err != nil {

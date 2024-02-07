@@ -27,7 +27,7 @@ func main() {
 
 	postgres := postgres.NewTaskRepository(db)
 	service := service.NewTaskStorage(postgres)
-	taskSrv := grpc_client.NewCreaterServer(service)
+	taskSrv := grpc_client.NewCreaterServer(service, logg)
 	srv := grpc_client.New(taskSrv)
 
 	if err := srv.ListenAndServe(cfg.Srvr.Port); err != nil {

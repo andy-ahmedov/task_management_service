@@ -3,6 +3,7 @@ syntax = "proto3";
 option go_package = "../api";
 
 import "google/protobuf/timestamp.proto";
+import "google/protobuf/wrappers.proto";
 
 service TaskService{
 	rpc Create(CreateRequest) returns (Empty) {}
@@ -17,7 +18,8 @@ message DeleteRequest {
 }
 
 message UpdateRequest {
-
+	int64 ID = 1;
+	ShortTask task = 2;
 }
 
 message GetAllRequest {
@@ -36,9 +38,9 @@ message Task {
 }
 
 message ShortTask {
-	string Name = 1;
-	string Description = 2;
-	string Status = 3;
+	google.protobuf.StringValue Name = 1;
+	google.protobuf.StringValue Description = 2;
+	google.protobuf.StringValue Status = 3;
 }
 
 
@@ -51,7 +53,9 @@ message GetResponse {
 }
 
 message CreateRequest {
-	ShortTask task = 1;
+	string Name = 1;
+	string Description = 2;
+	string Status = 3;
 }
 
 message Empty {

@@ -82,22 +82,22 @@ func (t *Task) Update(ctx context.Context, id int64, updTask domain.UpdateTaskIn
 	args := make([]interface{}, 0)
 	argId := 1
 
-	if updTask.Name != nil {
-		fmt.Println("NAME")
+	if &updTask.Name != nil {
+		fmt.Println("TUT", &updTask.Name)
 		setValues = append(setValues, fmt.Sprintf("name=$%d", argId))
 		args = append(args, *updTask.Name)
 		argId++
 	}
 
-	if updTask.Description != nil {
-		fmt.Println("DESCRIP")
+	if &updTask.Description != nil {
+		fmt.Println("TUT", &updTask.Description)
 		setValues = append(setValues, fmt.Sprintf("description=$%d", argId))
 		args = append(args, *updTask.Description)
 		argId++
 	}
 
-	if updTask.Status != nil {
-		fmt.Println("STATUS")
+	if &updTask.Status != nil {
+		fmt.Println("TUT", &updTask.Status)
 		setValues = append(setValues, fmt.Sprintf("status=$%d", argId))
 		args = append(args, *updTask.Status)
 		argId++
