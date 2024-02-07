@@ -2,14 +2,56 @@ syntax = "proto3";
 
 option go_package = "../api";
 
-service Creater{
+import "google/protobuf/timestamp.proto";
+
+service TaskService{
 	rpc Create(CreateRequest) returns (Empty) {}
+	rpc Get(GetRequest) returns (GetResponse) {}
+	rpc GetAll(GetAllRequest) returns (GetAllResponse) {}
+	rpc Delete(DeleteRequest) returns (Empty) {}
+	rpc Update(UpdateRequest) returns (Empty) {}
 }
 
-message CreateRequest {
+message DeleteRequest {
+	int64 ID = 1;
+}
+
+message UpdateRequest {
+
+}
+
+message GetAllRequest {
+}
+
+message GetAllResponse {
+	repeated Task tasks = 1;
+}
+
+message Task {
+	int64 ID = 1;
+	string Name = 2;
+	string Description = 3;
+	string Status = 4;
+	google.protobuf.Timestamp Created_at = 5;
+}
+
+message ShortTask {
 	string Name = 1;
 	string Description = 2;
 	string Status = 3;
+}
+
+
+message GetRequest {
+	int64 ID = 1;
+}
+
+message GetResponse {
+	Task task = 1;
+}
+
+message CreateRequest {
+	ShortTask task = 1;
 }
 
 message Empty {

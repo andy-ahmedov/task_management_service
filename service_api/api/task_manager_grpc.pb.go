@@ -14,86 +14,230 @@ import (
 // Requires gRPC-Go v1.32.0 or later.
 const _ = grpc.SupportPackageIsVersion7
 
-// CreaterClient is the client API for Creater service.
+// TaskServiceClient is the client API for TaskService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type CreaterClient interface {
+type TaskServiceClient interface {
 	Create(ctx context.Context, in *CreateRequest, opts ...grpc.CallOption) (*Empty, error)
+	Get(ctx context.Context, in *GetRequest, opts ...grpc.CallOption) (*GetResponse, error)
+	GetAll(ctx context.Context, in *GetAllRequest, opts ...grpc.CallOption) (*GetAllResponse, error)
+	Delete(ctx context.Context, in *DeleteRequest, opts ...grpc.CallOption) (*Empty, error)
+	Update(ctx context.Context, in *UpdateRequest, opts ...grpc.CallOption) (*Empty, error)
 }
 
-type createrClient struct {
+type taskServiceClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewCreaterClient(cc grpc.ClientConnInterface) CreaterClient {
-	return &createrClient{cc}
+func NewTaskServiceClient(cc grpc.ClientConnInterface) TaskServiceClient {
+	return &taskServiceClient{cc}
 }
 
-func (c *createrClient) Create(ctx context.Context, in *CreateRequest, opts ...grpc.CallOption) (*Empty, error) {
+func (c *taskServiceClient) Create(ctx context.Context, in *CreateRequest, opts ...grpc.CallOption) (*Empty, error) {
 	out := new(Empty)
-	err := c.cc.Invoke(ctx, "/Creater/Create", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/TaskService/Create", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// CreaterServer is the server API for Creater service.
-// All implementations must embed UnimplementedCreaterServer
+func (c *taskServiceClient) Get(ctx context.Context, in *GetRequest, opts ...grpc.CallOption) (*GetResponse, error) {
+	out := new(GetResponse)
+	err := c.cc.Invoke(ctx, "/TaskService/Get", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *taskServiceClient) GetAll(ctx context.Context, in *GetAllRequest, opts ...grpc.CallOption) (*GetAllResponse, error) {
+	out := new(GetAllResponse)
+	err := c.cc.Invoke(ctx, "/TaskService/GetAll", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *taskServiceClient) Delete(ctx context.Context, in *DeleteRequest, opts ...grpc.CallOption) (*Empty, error) {
+	out := new(Empty)
+	err := c.cc.Invoke(ctx, "/TaskService/Delete", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *taskServiceClient) Update(ctx context.Context, in *UpdateRequest, opts ...grpc.CallOption) (*Empty, error) {
+	out := new(Empty)
+	err := c.cc.Invoke(ctx, "/TaskService/Update", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// TaskServiceServer is the server API for TaskService service.
+// All implementations must embed UnimplementedTaskServiceServer
 // for forward compatibility
-type CreaterServer interface {
+type TaskServiceServer interface {
 	Create(context.Context, *CreateRequest) (*Empty, error)
-	mustEmbedUnimplementedCreaterServer()
+	Get(context.Context, *GetRequest) (*GetResponse, error)
+	GetAll(context.Context, *GetAllRequest) (*GetAllResponse, error)
+	Delete(context.Context, *DeleteRequest) (*Empty, error)
+	Update(context.Context, *UpdateRequest) (*Empty, error)
+	mustEmbedUnimplementedTaskServiceServer()
 }
 
-// UnimplementedCreaterServer must be embedded to have forward compatible implementations.
-type UnimplementedCreaterServer struct {
+// UnimplementedTaskServiceServer must be embedded to have forward compatible implementations.
+type UnimplementedTaskServiceServer struct {
 }
 
-func (UnimplementedCreaterServer) Create(context.Context, *CreateRequest) (*Empty, error) {
+func (UnimplementedTaskServiceServer) Create(context.Context, *CreateRequest) (*Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Create not implemented")
 }
-func (UnimplementedCreaterServer) mustEmbedUnimplementedCreaterServer() {}
+func (UnimplementedTaskServiceServer) Get(context.Context, *GetRequest) (*GetResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Get not implemented")
+}
+func (UnimplementedTaskServiceServer) GetAll(context.Context, *GetAllRequest) (*GetAllResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAll not implemented")
+}
+func (UnimplementedTaskServiceServer) Delete(context.Context, *DeleteRequest) (*Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Delete not implemented")
+}
+func (UnimplementedTaskServiceServer) Update(context.Context, *UpdateRequest) (*Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Update not implemented")
+}
+func (UnimplementedTaskServiceServer) mustEmbedUnimplementedTaskServiceServer() {}
 
-// UnsafeCreaterServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to CreaterServer will
+// UnsafeTaskServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to TaskServiceServer will
 // result in compilation errors.
-type UnsafeCreaterServer interface {
-	mustEmbedUnimplementedCreaterServer()
+type UnsafeTaskServiceServer interface {
+	mustEmbedUnimplementedTaskServiceServer()
 }
 
-func RegisterCreaterServer(s grpc.ServiceRegistrar, srv CreaterServer) {
-	s.RegisterService(&Creater_ServiceDesc, srv)
+func RegisterTaskServiceServer(s grpc.ServiceRegistrar, srv TaskServiceServer) {
+	s.RegisterService(&TaskService_ServiceDesc, srv)
 }
 
-func _Creater_Create_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _TaskService_Create_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(CreateRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(CreaterServer).Create(ctx, in)
+		return srv.(TaskServiceServer).Create(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/Creater/Create",
+		FullMethod: "/TaskService/Create",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CreaterServer).Create(ctx, req.(*CreateRequest))
+		return srv.(TaskServiceServer).Create(ctx, req.(*CreateRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// Creater_ServiceDesc is the grpc.ServiceDesc for Creater service.
+func _TaskService_Get_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TaskServiceServer).Get(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/TaskService/Get",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TaskServiceServer).Get(ctx, req.(*GetRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TaskService_GetAll_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetAllRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TaskServiceServer).GetAll(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/TaskService/GetAll",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TaskServiceServer).GetAll(ctx, req.(*GetAllRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TaskService_Delete_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TaskServiceServer).Delete(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/TaskService/Delete",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TaskServiceServer).Delete(ctx, req.(*DeleteRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TaskService_Update_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TaskServiceServer).Update(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/TaskService/Update",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TaskServiceServer).Update(ctx, req.(*UpdateRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// TaskService_ServiceDesc is the grpc.ServiceDesc for TaskService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var Creater_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "Creater",
-	HandlerType: (*CreaterServer)(nil),
+var TaskService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "TaskService",
+	HandlerType: (*TaskServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "Create",
-			Handler:    _Creater_Create_Handler,
+			Handler:    _TaskService_Create_Handler,
+		},
+		{
+			MethodName: "Get",
+			Handler:    _TaskService_Get_Handler,
+		},
+		{
+			MethodName: "GetAll",
+			Handler:    _TaskService_GetAll_Handler,
+		},
+		{
+			MethodName: "Delete",
+			Handler:    _TaskService_Delete_Handler,
+		},
+		{
+			MethodName: "Update",
+			Handler:    _TaskService_Update_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
