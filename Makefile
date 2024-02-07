@@ -1,8 +1,11 @@
 all: run
 
 
-run: 
+server_run: 
 	go run server/cmd/main.go
+
+client_run: 
+	go run client/cmd/main.go
 
 up:
 	docker-compose up -d db
