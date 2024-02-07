@@ -9,12 +9,11 @@ import (
 )
 
 type Client struct {
-	conn          *grpc.ClientConn
-	CreaterClient api.CreaterClient
+	conn              *grpc.ClientConn
+	TaskServiceClient api.TaskServiceClient
 }
 
 func NewClient(port int) (*Client, error) {
-	// var conn *grpc.ClientConn
 	opts := []grpc.DialOption{
 		grpc.WithInsecure(),
 	}
@@ -27,8 +26,8 @@ func NewClient(port int) (*Client, error) {
 	}
 
 	return &Client{
-		conn:          conn,
-		CreaterClient: api.NewCreaterClient(conn),
+		conn:              conn,
+		TaskServiceClient: api.NewTaskServiceClient(conn),
 	}, nil
 }
 
@@ -38,12 +37,16 @@ func (c *Client) CloseConnection() error {
 
 func (c *Client) Create(ctx context.Context, name, des, status string) error {
 
-	req := api.CreateRequest{
+	task := api.ShortTask{
 		Name:        name,
 		Description: des,
 		Status:      status,
 	}
-	_, err := c.CreaterClient.Create(ctx, &req)
+
+	req := api.CreateRequest{
+		Task: &task,
+	}
+	_, err := c.TaskServiceClient.Create(ctx, &req)
 
 	return err
 }

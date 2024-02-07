@@ -23,12 +23,6 @@ func main() {
 		logg.Fatal(err)
 	}
 
-	// err = createClient.Create(context.Background(), &api.CreateRequest{
-	// 	Name:        "HEYYO GRPC",
-	// 	Description: "BELIEVE?",
-	// 	Status:      "I DONT KNOW",
-	// })
-
 	err = createClient.Create(context.Background(), "DOUBLE", "WHY", "OMG")
 	if err != nil {
 		logg.Fatal(err)
