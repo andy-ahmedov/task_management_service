@@ -18,13 +18,41 @@ func main() {
 	logg := logger.NewLogger()
 	logg.Info(cfg)
 
-	createClient, err := grpc_client.NewClient(cfg.Srvr.Port)
+	client, err := grpc_client.NewClient(cfg.Srvr.Port)
 	if err != nil {
 		logg.Fatal(err)
 	}
 
-	err = createClient.Create(context.Background(), "DOUBLE", "WHY", "OMG")
+	err = client.Create(context.Background(), "NEW Task", "HRA", "ON")
 	if err != nil {
 		logg.Fatal(err)
 	}
+
+	// task, err := client.Get(context.Background(), 2)
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
+
+	// fmt.Println(task)
+
+	// tasks, err := client.GetAll(context.Background())
+	// fmt.Println(tasks)
+
+	// err = client.Delete(context.Background(), 2)
+	// if err != nil {
+	// 	logg.Fatal(err)
+	// }
+
+	// that := "Change"
+
+	// upd := domain.UpdateTaskInput{
+	// 	Name:        nil,
+	// 	Description: &that,
+	// 	Status:      nil,
+	// }
+
+	// err = client.Update(context.Background(), 5, &upd)
+	// if err != nil {
+	// 	logg.Fatal(err)
+	// }
 }
