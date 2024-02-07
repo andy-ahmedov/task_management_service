@@ -2,6 +2,7 @@ package service
 
 import (
 	"context"
+	"time"
 
 	"github.com/andy-ahmedov/task_management_service/server/internal/domain"
 	"github.com/andy-ahmedov/task_management_service/service_api/api"
@@ -30,6 +31,7 @@ func (t *TasksStorage) CreateTask(ctx context.Context, req *api.CreateRequest) e
 		Name:        req.GetName(),
 		Description: req.GetDescription(),
 		Status:      req.GetStatus(),
+		Created_at:  time.Now(),
 	}
 
 	return t.repo.Create(ctx, &task)

@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/andy-ahmedov/task_management_service/service_api/api"
+	"github.com/andy-ahmedov/task_management_service/service_api/logger"
 )
 
 type Creater interface {
@@ -12,6 +13,7 @@ type Creater interface {
 
 type CreaterServer struct {
 	service Creater
+	api.UnimplementedCreaterServer
 }
 
 func NewCreaterServer(service Creater) *CreaterServer {
@@ -20,11 +22,12 @@ func NewCreaterServer(service Creater) *CreaterServer {
 	}
 }
 
-func (h *CreaterServer) mustEmbedUnimplementedCreaterServer() {
-}
-
 func (h *CreaterServer) Create(ctx context.Context, req *api.CreateRequest) (*api.Empty, error) {
 	err := h.service.CreateTask(ctx, req)
+	if err == nil {
+		logg := logger.NewLogger()
+		logg.Info("COMPLETE")
+	}
 
 	return &api.Empty{}, err
 }
