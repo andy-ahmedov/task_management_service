@@ -1,6 +1,9 @@
 all: run
 
 
+sup:
+	sudo docker-compose up --build server
+
 server_run: 
 	go run server/cmd/main.go
 
