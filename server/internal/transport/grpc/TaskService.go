@@ -9,6 +9,7 @@ import (
 	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
+// Сервис grpc сервера
 type TaskService interface {
 	CreateTask(ctx context.Context, req *api.CreateRequest) error
 	GetTask(ctx context.Context, id int64) (domain.Task, error)
