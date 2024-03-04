@@ -7,8 +7,7 @@
  <img alt="PostgreSQL" src="https://img.shields.io/badge/PostgreSQL-%23212121?style=for-the-badge&logo=postgreSQL&labelColor=black">
 
  <img alt="RabbitMQ" src="https://img.shields.io/badge/RabbitMQ-%23ff6600?style=for-the-badge&logo=rabbitmq&labelColor=black">
-
-
+ 
   <img alt="MongoDB" src="https://img.shields.io/badge/MongoDB-%23011d2b?style=for-the-badge&logo=mongodb&labelColor=black">
 
  <img alt="Docker" src="https://img.shields.io/badge/Docker-%231d63ed?style=for-the-badge&logo=docker&labelColor=black">
@@ -43,9 +42,6 @@ $ make mongodb
 
 # Up PostgreSQL
 $ make up
-
-# Create Tables
-$ make create_table
 
 # Run the project
 $ make run
