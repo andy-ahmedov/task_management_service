@@ -49,13 +49,17 @@ $ make run
 ```
 
 ## 🔨 STACK ##
+  <a href="https://git-scm.com/" target="_blank"> <img src="https://raw.githubusercontent.com/rahul-jha98/github_readme_icons/main/language_and_tools/square/git-scm/git-scm.svg" align="left" alt="git" height='50px'/> </a>
   <a href="https://go.dev/" target="_blank"> <img src="https://github.com/andy-ahmedov/andy-ahmedov/blob/main/files/Go-Logo_Yellow.png?raw=true" alt="golang" align="left" height='50px'/> </a>
   <a href="https://www.gnu.org/software/bash/" target="_blank"> <img src="https://raw.githubusercontent.com/andy-ahmedov/README_icons/5a0bd0723991e5d95e0eb90ce4e544345b69e05b/language_and_tools/square/bash/bash.svg" alt="bash" align="left" height='50px'/> </a>
   <a href="https://www.docker.com/" target="_blank"> <img src="https://raw.githubusercontent.com/andy-ahmedov/README_icons/5a0bd0723991e5d95e0eb90ce4e544345b69e05b/language_and_tools/square/docker/docker.svg" alt="docker" align="left" height='50px'/> </a>
   <a href="https://www.rabbitmq.com/" target="_blank"> <img src="https://raw.githubusercontent.com/andy-ahmedov/README_icons/5a0bd0723991e5d95e0eb90ce4e544345b69e05b/language_and_tools/square/rabbitmq/rabbitmq.svg" align="left" alt="rabbitmq" height='50px'/> </a>
   <a href="https://www.mongodb.com/" target="_blank"> <img src="https://raw.githubusercontent.com/devicons/devicon/6910f0503efdd315c8f9b858234310c06e04d9c0/icons/mongodb/mongodb-plain-wordmark.svg" align="left" alt="mongodb" height='50px'/> </a>
+  <a href="https://www.openapis.org/" target="_blank"> <img src="https://raw.githubusercontent.com/devicons/devicon/6910f0503efdd315c8f9b858234310c06e04d9c0/icons/openapi/openapi-plain-wordmark.svg" align="left" alt="openapi" height='50px'/> </a>
   <a href="https://www.postgresql.org/" target="_blank"> <img src="https://raw.githubusercontent.com/devicons/devicon/6910f0503efdd315c8f9b858234310c06e04d9c0/icons/postgresql/postgresql-plain-wordmark.svg" align="left" alt="postgres" height='50px'/> </a>
+  <a href="https://www.github.com/" target="_blank"> <img src="https://cdn0.iconfinder.com/data/icons/free-social-media-set/24/github-1024.png" align="left" alt="github" height='50px'/> </a>
   <a href="https://grpc.io/" target="_blank"> <img src="https://raw.githubusercontent.com/devicons/devicon/6910f0503efdd315c8f9b858234310c06e04d9c0/icons/grpc/grpc-original.svg" align="left" alt="grpc" height='50px'/> </a>
   <a href="https://www.json.org/json-en.html" target="_blank"> <img src="https://raw.githubusercontent.com/devicons/devicon/6910f0503efdd315c8f9b858234310c06e04d9c0/icons/json/json-plain.svg" align="left" alt="json" height='50px'/> </a>
+  <a href="https://restfulapi.net/" target="_blank"> <img src="https://repository-images.githubusercontent.com/436490321/0e58e265-ef30-40b1-b439-8b302b06ec42" align="left" alt="rest-api" height='50px'/> </a>
   <a href="https://code.visualstudio.com/" target="_blank"> <img src="https://raw.githubusercontent.com/devicons/devicon/6910f0503efdd315c8f9b858234310c06e04d9c0/icons/visualstudio/visualstudio-plain-wordmark.svg" align="left" alt="vscode" height='50px'/> </a>
 
