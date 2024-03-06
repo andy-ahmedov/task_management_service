@@ -14,7 +14,7 @@
 </p>
 <hr>
 
-![server](https://i.imgur.com/vtXhJBU.png)
+![service](https://i.imgur.com/vtXhJBU.png)
 
 
 ## ABOUT ##
